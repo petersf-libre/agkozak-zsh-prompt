@@ -309,7 +309,13 @@ _agkozak_branch_status() {
 # to a colon
 ############################################################
 zle-keymap-select() {
-  [[ $KEYMAP == 'vicmd' ]] && psvar[4]='vicmd' || psvar[4]=''
+  if [[ $KEYMAP == 'vicmd' ]]; then
+	psvar[4]='vicmd'
+	echo -ne '\e[1 q'
+  else
+	psvar[4]=''
+	echo -ne '\e[5 q'
+  fi
   zle reset-prompt
   zle -R
 }
